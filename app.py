@@ -9,6 +9,7 @@ import shap
 import os
 import warnings
 import matplotlib
+import gdown
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
@@ -197,11 +198,32 @@ RISK_COLORS = {"Good": "#10b981", "AtRisk": "#f59e0b", "Critical": "#ef4444"}
 #  LOAD MODEL
 # ─────────────────────────────────────────
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-
 @st.cache_resource
 def load_artifacts():
-    model   = joblib.load(os.path.join(BASE_DIR, "rf_model.joblib"))
-    encoder = joblib.load(os.path.join(BASE_DIR, "label_encoder.joblib"))
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+    model_path = os.path.join(BASE_DIR, "rf_model.joblib")
+    encoder_path = os.path.join(BASE_DIR, "label_encoder.joblib")
+
+    # Download model if not exists
+    if not os.path.exists(model_path):
+        gdown.download(
+            "https://drive.google.com/uc?id=1lrxOFCTAuu8Im6aGwM8xawkBXLweWvz9",
+            model_path,
+            quiet=False
+        )
+
+    # Download encoder if not exists
+    if not os.path.exists(encoder_path):
+        gdown.download(
+            "https://drive.google.com/uc?id=1DVIDkhwC0Elqtb2_ESkfSIxQUaL6OOKE",
+            encoder_path,
+            quiet=False
+        )
+
+    model = joblib.load(model_path)
+    encoder = joblib.load(encoder_path)
+
     return model, encoder
 
 rf_model, label_encoder = load_artifacts()
