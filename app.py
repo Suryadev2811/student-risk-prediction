@@ -202,7 +202,6 @@ import gdown
 
 MODEL_URL = "https://drive.google.com/uc?id=1lrxOFCTAuu8Im6aGwM8xawkBXLweWvz9"
 MODEL_PATH = os.path.join(BASE_DIR, "rf_model.joblib")
-
 @st.cache_resource
 def load_artifacts():
     if not os.path.exists(MODEL_PATH):
