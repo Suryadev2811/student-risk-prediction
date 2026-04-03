@@ -198,21 +198,14 @@ RISK_COLORS = {"Good": "#10b981", "AtRisk": "#f59e0b", "Critical": "#ef4444"}
 # ─────────────────────────────────────────
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-import gdown 
-
-MODEL_URL = "https://drive.google.com/uc?id=1lrxOFCTAuu8Im6aGwM8xawkBXLweWvz9"
-MODEL_PATH = os.path.join(BASE_DIR, "rf_model.joblib")
 @st.cache_resource
 def load_artifacts():
-    if not os.path.exists(MODEL_PATH):
-        with st.spinner("⬇ Downloading ML model... please wait"):
-            gdown.download(MODEL_URL, MODEL_PATH, quiet=False)
-
-    model = joblib.load(MODEL_PATH)
+    model   = joblib.load(os.path.join(BASE_DIR, "rf_model.joblib"))
     encoder = joblib.load(os.path.join(BASE_DIR, "label_encoder.joblib"))
-
     return model, encoder
+
 rf_model, label_encoder = load_artifacts()
+
 FEATURES = [
     'attendance_pct',
     'quiz_1','quiz_2','quiz_3','quiz_4','quiz_5',
