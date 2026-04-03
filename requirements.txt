@@ -5,6 +5,6 @@ scikit-learn
 joblib
 plotly
 openpyxl
-shap
 requests
 shap
+matplotlib
