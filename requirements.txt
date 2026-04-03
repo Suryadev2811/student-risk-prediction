@@ -8,3 +8,4 @@ openpyxl
 requests
 shap
 matplotlib
+gdown
